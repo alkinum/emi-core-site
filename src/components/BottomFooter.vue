@@ -32,6 +32,7 @@
   padding-right: 16px;
   animation: footer-in 300ms ease-out 240ms 1 forwards;
   opacity: 0;
+  user-select: none;
 
   &__group {
     color: rgba(255, 255, 255, 0.6);
