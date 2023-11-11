@@ -3,6 +3,7 @@
     <a-content>
       <top-nav />
       <landing />
+      <bottom-footer />
     </a-content>
   </a-layout>
 </template>

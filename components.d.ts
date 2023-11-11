@@ -13,10 +13,15 @@ declare module 'vue' {
     AInput: typeof import('@any-design/anyui')['Input']
     ALayout: typeof import('@any-design/anyui')['Layout']
     ATextarea: (typeof import('@any-design/anyui'))['Textarea']
+    BottomFooter: typeof import('./src/components/BottomFooter.vue')['default']
     'IMaterialSymbols:arrowUpwardRounded': typeof import('~icons/material-symbols/arrow-upward-rounded')['default']
+    IMdiGithub: typeof import('~icons/mdi/github')['default']
     IMingcuteSendPlaneFill: typeof import('~icons/mingcute/send-plane-fill')['default']
     Landing: typeof import('./src/components/Landing.vue')['default']
     LandingBanner: (typeof import('./src/components/LandingBanner.vue'))['default']
+    Passport: typeof import('./src/components/user/Passport.vue')['default']
+    Source: typeof import('./src/components/Source.vue')['default']
+    SourceFooter: typeof import('./src/components/SourceFooter.vue')['default']
     TopNav: typeof import('./src/components/TopNav.vue')['default']
   }
 }

@@ -115,7 +115,7 @@ const handleSendClicked = () => { };
     font-weight: 500;
     box-sizing: border-box;
     color: #fff;
-    margin-bottom: 8rem;
+    margin-bottom: 7.5rem;
     animation: banner-in 420ms ease-out 0.14s 1 forwards;
     opacity: 0;
 
@@ -130,6 +130,7 @@ const handleSendClicked = () => { };
     width: 42%;
     min-width: 320px;
     position: relative;
+    margin-bottom: 4rem;
 
     &__buttons {
       display: flex;
