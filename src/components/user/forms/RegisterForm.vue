@@ -10,7 +10,10 @@
       <a-input type="password" v-model="formData.password"></a-input>
     </a-form-item>
     <a-form-item prop="confirmPassword" label="确认密码">
-      <a-input type="confirmPassword" v-model="formData.confirmPassword"></a-input>
+      <a-input type="password" v-model="formData.confirmPassword"></a-input>
+    </a-form-item>
+    <a-form-item prop="email" label="电子邮箱">
+      <a-input v-model="formData.email"></a-input>
     </a-form-item>
     <a-form-item prop="t_token" label="验证">
       <div class="turnstile-container">
@@ -32,10 +35,14 @@ import Turnstile from '@any-design/turnstile';
 import { cloneDeep } from 'lodash-es';
 import { ref } from 'vue';
 
+import { sha256 } from '@/utils/hash';
+import { post } from '@/utils/request';
+
 const DEFAULT_FORM_DATA = {
   username: '',
   password: '',
   confirmPassword: '',
+  email: '',
   t_token: '',
 };
 
@@ -47,14 +54,47 @@ const formRules = ref({
   username: [{
     required: true,
     message: '请输入用户名',
+  }, {
+    validator: (rule: any, value: string, callback: (reason?: string) => void) => {
+      if (value.length && value.length <= 4) {
+        return callback('用户名至少需要5个字符');
+      }
+      if (value.length && value.length >= 20) {
+        return callback('用户名太长啦~');
+      }
+      if (!/^[a-zA-Z0-9#_]+$/.test(value)) {
+        return callback('用户名只能包含字母、数字和特殊字符：#_');
+      }
+      callback();
+    },
   }],
   password: [{
     required: true,
     message: '请输入密码',
+  }, {
+    validator: (rule: any, value: string, callback: (reason?: string) => void) => {
+      if (value !== formData.value.password) {
+        return callback('两次输入密码不一致');
+      }
+      if (value.length <= 6) {
+        return callback('密码至少需要6位数');
+      }
+      if (!/^[a-zA-Z0-9!@#_$%^&*]+$/.test(value)) {
+        return callback('密码只能包含字母、数字和特殊字符：!@#_$%^&*');
+      }
+      callback();
+    },
   }],
   confirmPassword: [{
     required: true,
     message: '请再次输入密码',
+  }, {
+    validator: (rule: any, value: string, callback: (reason?: string) => void) => {
+      if (value !== formData.value.password) {
+        return callback('两次输入密码不一致');
+      }
+      callback();
+    },
   }],
   email: [{
     required: true,
@@ -84,6 +124,20 @@ const onRegisterClicked = async () => {
   }
   // request backend
   buttonLoading.value = true;
+  try {
+    await post('/user/register', {
+      ...formData.value,
+      password: await sha256(formData.value.password),
+      confirmPassword: await sha256(formData.value.confirmPassword),
+    });
+    message.success('注册成功');
+    emit('switchToLogin');
+  } catch (error) {
+    console.error('Failed to register:', error);
+    message.error((error as any).message || '注册失败，请稍后再试');
+  } finally {
+    buttonLoading.value = false;
+  }
 };
 
 const handleLogin = () => {

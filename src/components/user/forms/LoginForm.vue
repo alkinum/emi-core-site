@@ -29,6 +29,9 @@ import Turnstile from '@any-design/turnstile';
 import { cloneDeep } from 'lodash-es';
 import { ref } from 'vue';
 
+import { sha256 } from '@/utils/hash';
+import { post } from '@/utils/request';
+
 const DEFAULT_FORM_DATA = {
   username: '',
   password: '',
@@ -69,6 +72,17 @@ const onLoginClicked = async () => {
   }
   // request backend
   buttonLoading.value = true;
+  try {
+    await post('/user/login', {
+      ...formData.value,
+      password: await sha256(formData.value.password),
+    });
+  } catch (error) {
+    console.error('Failed to login:', error);
+    message.error((error as any).message || '登录失败，请稍后再试');
+  } finally {
+    buttonLoading.value = false;
+  }
 };
 
 const handleRegister = () => {
