@@ -141,48 +141,58 @@ const handleSendClicked = () => { };
         min-width: 200px;
         border-radius: 4px;
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
         background-color: rgba(255, 255, 255, 0.1);
         border: none;
-        padding: 12px 10px 12px 18px;
+        padding: 0;
         height: 36px;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 13px;
-        line-height: 1;
         border-radius: 18px;
         width: 42%;
         animation: action-button-in 220ms ease-out 820ms 1 forwards;
         opacity: 0;
 
-        span {
-          color: rgba(255, 255, 255, 0.8);
-          transition: color 100ms ease;
-        }
-
-        svg {
-          background-color: rgba(0, 0, 0, 0.08);
-          color: #fff;
-          padding: 4px;
-          border-radius: 50%;
-          position: relative;
+        &__inner {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 0.6);
+          font-size: 13px;
+          line-height: 1;
+          padding: 12px 10px 12px 18px;
           box-sizing: border-box;
-          font-size: 20px;
-          display: none;
+
+          span {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color 100ms ease;
+          }
+
+          svg {
+            background-color: rgba(0, 0, 0, 0.08);
+            color: #fff;
+            padding: 4px;
+            border-radius: 50%;
+            position: relative;
+            box-sizing: border-box;
+            font-size: 20px;
+            display: none;
+          }
         }
       }
 
       .a-button:hover {
         background-color: rgba(255, 255, 255, 0.15);
-        padding: 6px 10px 6px 18px;
 
-        span {
-          color: rgba(255, 255, 255, 0.8);
-        }
+        .a-button__inner {
+          padding: 6px 10px 6px 18px;
 
-        svg {
-          display: block;
+          span {
+            color: rgba(255, 255, 255, 0.8);
+          }
+
+          svg {
+            display: block;
+          }
         }
       }
 
