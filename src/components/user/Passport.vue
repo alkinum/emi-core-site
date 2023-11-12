@@ -24,6 +24,7 @@ const currentForm = ref<'login' | 'register'>('login');
 
 watch(() => props.visible, (newVal) => {
   floatVisible.value = newVal;
+  currentForm.value = 'login';
 });
 
 watch(() => floatVisible.value, (newVal) => {

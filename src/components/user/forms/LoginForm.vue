@@ -3,15 +3,15 @@
     <div class="passport-form__header">
       <span>登录</span>
     </div>
-    <a-form-item prop="username" label="用户名">
-      <a-input v-model="formData.username"></a-input>
+    <a-form-item prop="email" label="邮箱">
+      <a-input v-model="formData.email"></a-input>
     </a-form-item>
     <a-form-item prop="password" label="密码">
       <a-input type="password" v-model="formData.password"></a-input>
     </a-form-item>
     <a-form-item prop="t_token" label="验证">
       <div class="turnstile-container">
-        <turnstile site-key="0x4AAAAAAANAWk6e4wepjB9g" v-model="formData.t_token" loadingText="验证码加载中..." />
+        <turnstile ref="turnstileRef" site-key="0x4AAAAAAANAWk6e4wepjB9g" v-model="formData.t_token" loadingText="验证码加载中..." />
       </div>
     </a-form-item>
     <a-form-item label=" ">
@@ -33,19 +33,23 @@ import { sha256 } from '@/utils/hash';
 import { post } from '@/utils/request';
 
 const DEFAULT_FORM_DATA = {
-  username: '',
+  email: '',
   password: '',
   t_token: '',
 };
 
 const formRef = ref<InstanceType<typeof AForm> | undefined>();
+const turnstileRef = ref<InstanceType<typeof Turnstile> | undefined>();
 
 const formData = ref(cloneDeep(DEFAULT_FORM_DATA));
 
 const formRules = ref({
-  username: [{
+  email: [{
     required: true,
-    message: '请输入用户名',
+    message: '请输入邮箱',
+  }, {
+    pattern: /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/,
+    message: '请输入正确的电子邮箱',
   }],
   password: [{
     required: true,
@@ -80,6 +84,7 @@ const onLoginClicked = async () => {
   } catch (error) {
     console.error('Failed to login:', error);
     message.error((error as any).message || '登录失败，请稍后再试');
+    turnstileRef.value?.reset();
   } finally {
     buttonLoading.value = false;
   }

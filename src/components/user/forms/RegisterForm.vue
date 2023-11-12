@@ -3,8 +3,8 @@
     <div class="passport-form__header">
       <span>注册</span>
     </div>
-    <a-form-item prop="username" label="用户名">
-      <a-input v-model="formData.username"></a-input>
+    <a-form-item prop="email" label="电子邮箱">
+      <a-input v-model="formData.email"></a-input>
     </a-form-item>
     <a-form-item prop="password" label="密码">
       <a-input type="password" v-model="formData.password"></a-input>
@@ -12,12 +12,9 @@
     <a-form-item prop="confirmPassword" label="确认密码">
       <a-input type="password" v-model="formData.confirmPassword"></a-input>
     </a-form-item>
-    <a-form-item prop="email" label="电子邮箱">
-      <a-input v-model="formData.email"></a-input>
-    </a-form-item>
     <a-form-item prop="t_token" label="验证">
       <div class="turnstile-container">
-        <turnstile site-key="0x4AAAAAAANAWk6e4wepjB9g" v-model="formData.t_token" loadingText="验证码加载中..." />
+        <turnstile ref="turnstileRef" site-key="0x4AAAAAAANAWk6e4wepjB9g" v-model="formData.t_token" loadingText="验证码加载中..." />
       </div>
     </a-form-item>
     <a-form-item label=" ">
@@ -49,25 +46,9 @@ const DEFAULT_FORM_DATA = {
 const formRef = ref<InstanceType<typeof AForm> | undefined>();
 
 const formData = ref(cloneDeep(DEFAULT_FORM_DATA));
+const turnstileRef = ref<InstanceType<typeof Turnstile> | undefined>();
 
 const formRules = ref({
-  username: [{
-    required: true,
-    message: '请输入用户名',
-  }, {
-    validator: (rule: any, value: string, callback: (reason?: string) => void) => {
-      if (value.length && value.length <= 4) {
-        return callback('用户名至少需要5个字符');
-      }
-      if (value.length && value.length >= 20) {
-        return callback('用户名太长啦~');
-      }
-      if (!/^[a-zA-Z0-9#_]+$/.test(value)) {
-        return callback('用户名只能包含字母、数字和特殊字符：#_');
-      }
-      callback();
-    },
-  }],
   password: [{
     required: true,
     message: '请输入密码',
@@ -135,6 +116,7 @@ const onRegisterClicked = async () => {
   } catch (error) {
     console.error('Failed to register:', error);
     message.error((error as any).message || '注册失败，请稍后再试');
+    turnstileRef.value?.reset();
   } finally {
     buttonLoading.value = false;
   }

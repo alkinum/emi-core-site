@@ -1,4 +1,4 @@
-const BASE_URL = 'https://emi-io.alkinum.io';
+const BASE_URL = 'https://emi-core.alkinum.io';
 const REQUEST_TIMEOUT = 10 * 1000;
 
 export async function httpRequset<T = unknown>(url: string, options?: RequestInit) {
