@@ -1,10 +1,21 @@
 <template>
   <div class="top-nav">
-    <a-button type="gradient" round>登录</a-button>
+    <a-button type="gradient" round @click="onLoginClicked">登录</a-button>
+    <Passport v-model:visible="passportVisible" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue';
+
+import Passport from './user/Passport.vue';
+
+const passportVisible = ref(false);
+
+const onLoginClicked = () => {
+  passportVisible.value = true;
+};
+</script>
 
 <style lang="scss" scoped>
 .top-nav {

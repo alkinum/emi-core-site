@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-footer">
-    <div class="bottom-footer__group">alkinum.dev</div>
+    <div class="bottom-footer__group">alkinum.io</div>
     <i-mdi-github />
   </div>
 </template>

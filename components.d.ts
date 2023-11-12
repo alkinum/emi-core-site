@@ -8,20 +8,21 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AButton: typeof import('@any-design/anyui')['Button']
+    AClickableText: typeof import('@any-design/anyui')['ClickableText']
     AContent: typeof import('@any-design/anyui')['Content']
-    AHeader: (typeof import('@any-design/anyui'))['Header']
+    AFloat: typeof import('@any-design/anyui')['Float']
+    AFormItem: typeof import('@any-design/anyui')['FormItem']
     AInput: typeof import('@any-design/anyui')['Input']
     ALayout: typeof import('@any-design/anyui')['Layout']
-    ATextarea: (typeof import('@any-design/anyui'))['Textarea']
+    ApiKeyListPanel: typeof import('./src/components/user/panels/ApiKeyListPanel.vue')['default']
     BottomFooter: typeof import('./src/components/BottomFooter.vue')['default']
     'IMaterialSymbols:arrowUpwardRounded': typeof import('~icons/material-symbols/arrow-upward-rounded')['default']
     IMdiGithub: typeof import('~icons/mdi/github')['default']
-    IMingcuteSendPlaneFill: typeof import('~icons/mingcute/send-plane-fill')['default']
     Landing: typeof import('./src/components/Landing.vue')['default']
-    LandingBanner: (typeof import('./src/components/LandingBanner.vue'))['default']
+    LoginForm: typeof import('./src/components/user/forms/LoginForm.vue')['default']
     Passport: typeof import('./src/components/user/Passport.vue')['default']
-    Source: typeof import('./src/components/Source.vue')['default']
-    SourceFooter: typeof import('./src/components/SourceFooter.vue')['default']
+    RegisterForm: typeof import('./src/components/user/forms/RegisterForm.vue')['default']
     TopNav: typeof import('./src/components/TopNav.vue')['default']
+    UserCenter: typeof import('./src/components/user/UserCenter.vue')['default']
   }
 }
