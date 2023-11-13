@@ -29,6 +29,7 @@ import Turnstile from '@any-design/turnstile';
 import { cloneDeep } from 'lodash-es';
 import { ref } from 'vue';
 
+import { useTokenStore } from '@/store/token';
 import { sha256 } from '@/utils/hash';
 import { post } from '@/utils/request';
 
@@ -61,7 +62,7 @@ const formRules = ref({
   }],
 });
 
-const emit = defineEmits(['switchToRegister']);
+const emit = defineEmits(['switchToRegister', 'success']);
 
 const buttonLoading = ref(false);
 
@@ -77,10 +78,17 @@ const onLoginClicked = async () => {
   // request backend
   buttonLoading.value = true;
   try {
-    await post('/user/login', {
+    const { access_token: accessToken, refresh_token: refreshToken } = await post<{ access_token: string, refresh_token: string }>('/user/login', {
       ...formData.value,
       password: await sha256(formData.value.password),
     });
+    const tokenStore = useTokenStore();
+    tokenStore.setTokens({
+      accessToken,
+      refreshToken,
+    });
+    message.success('登录成功');
+    emit('success');
   } catch (error) {
     console.error('Failed to login:', error);
     message.error((error as any).message || '登录失败，请稍后再试');

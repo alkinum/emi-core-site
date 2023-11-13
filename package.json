@@ -12,8 +12,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@any-design/anyui": "^0.1.18",
-    "@any-design/turnstile": "^0.2.0",
+    "@any-design/anyui": "^0.1.19",
+    "@any-design/turnstile": "^0.2.1",
     "@iconify-json/material-symbols": "^1.1.62",
     "@iconify-json/mdi": "^1.1.55",
     "hash-wasm": "^4.10.0",

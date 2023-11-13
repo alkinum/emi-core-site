@@ -1,20 +1,47 @@
 <template>
   <div class="top-nav">
-    <a-button type="gradient" round @click="onLoginClicked">登录</a-button>
-    <Passport v-model:visible="passportVisible" />
+    <a-button type="gradient" round @click="onLoginClicked" v-if="!userLogon">登录</a-button>
+    <a-button class="top-nav__user" type="secondary" round v-else @click="openUserCenter">{{ displayNickname }}</a-button>
+    <Passport v-model:visible="passportVisible" @refresh="onRefreshUserInfo" />
+    <UserCenter v-model:visible="userCenterVisible" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 import Passport from './user/Passport.vue';
 
+import { useTokenStore } from '@/store/token';
+import { useUserStore } from '@/store/user';
+
+const tokenStore = useTokenStore();
+const userStore = useUserStore();
+
 const passportVisible = ref(false);
+const userCenterVisible = ref(false);
+
+const userLogon = computed(() => !!userStore.user);
+const displayNickname = computed(() => userStore.user?.nickname || userStore.user?.email);
 
 const onLoginClicked = () => {
   passportVisible.value = true;
 };
+
+const onRefreshUserInfo = () => {
+  userStore.getUserInfo();
+};
+
+const openUserCenter = () => {
+  userCenterVisible.value = true;
+};
+
+onBeforeMount(async () => {
+  await tokenStore.checkTokenState();
+  if (tokenStore.accessToken) {
+    userStore.getUserInfo();
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -30,5 +57,10 @@ const onLoginClicked = () => {
   padding: 16px;
   box-sizing: border-box;
   z-index: 10;
+
+  &__user {
+    font-size: 13px;
+    padding: 3px 18px;
+  }
 }
 </style>

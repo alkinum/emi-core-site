@@ -1,6 +1,6 @@
 <template>
   <a-float class="passport" v-model:visible="floatVisible" width="580" round>
-    <login-form @switchToRegister="switchToRegister" v-if="currentForm === 'login'" />
+    <login-form @switchToRegister="switchToRegister" @success="onLoginSucceed" v-if="currentForm === 'login'" />
     <register-form @switchToLogin="switchToLogin" v-else />
   </a-float>
 </template>
@@ -17,7 +17,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['update:visible']);
+const emit = defineEmits(['update:visible', 'refresh']);
 
 const floatVisible = ref(props.visible);
 const currentForm = ref<'login' | 'register'>('login');
@@ -37,6 +37,11 @@ const switchToLogin = () => {
 
 const switchToRegister = () => {
   currentForm.value = 'register';
+};
+
+const onLoginSucceed = () => {
+  floatVisible.value = false;
+  emit('refresh');
 };
 </script>
 

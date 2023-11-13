@@ -36,10 +36,9 @@ import { sha256 } from '@/utils/hash';
 import { post } from '@/utils/request';
 
 const DEFAULT_FORM_DATA = {
-  username: '',
+  email: '',
   password: '',
   confirmPassword: '',
-  email: '',
   t_token: '',
 };
 
