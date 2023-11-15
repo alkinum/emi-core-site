@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 
-import { AnyUIResolver } from '@any-design/anyui/lib/resolver';
+import { AnyUIResolver } from '@any-design/anyui/lib/src/resolver';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
@@ -16,10 +16,19 @@ export default defineConfig({
     vue(),
     vueJsx(),
     AutoImport({
-      resolvers: [AnyUIResolver()],
+      resolvers: [
+        AnyUIResolver({
+          styleType: 'scss',
+        }),
+      ],
     }),
     Components({
-      resolvers: [AnyUIResolver(), IconsResolver()],
+      resolvers: [
+        AnyUIResolver({
+          styleType: 'scss',
+        }),
+        IconsResolver(),
+      ],
     }),
     gfont({
       fonts: [
