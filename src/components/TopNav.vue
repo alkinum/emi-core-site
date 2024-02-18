@@ -1,9 +1,12 @@
 <template>
   <div class="top-nav">
-    <a-button type="gradient" round @click="onLoginClicked" v-if="!userLogon">登录</a-button>
-    <a-button class="top-nav__user" type="secondary" round v-else @click="openUserCenter">{{ displayNickname }}</a-button>
-    <Passport v-model:visible="passportVisible" @refresh="onRefreshUserInfo" />
-    <UserCenter v-model:visible="userCenterVisible" />
+    <!-- disable this part because service is not available -->
+    <template v-if="false">
+      <a-button type="gradient" round @click="onLoginClicked" v-if="!userLogon">登录</a-button>
+      <a-button class="top-nav__user" type="secondary" round v-else @click="openUserCenter">{{ displayNickname }}</a-button>
+      <Passport v-model:visible="passportVisible" @refresh="onRefreshUserInfo" />
+      <UserCenter v-model:visible="userCenterVisible" />
+    </template>
   </div>
 </template>
 

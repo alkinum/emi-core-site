@@ -1,11 +1,15 @@
 <template>
   <div class="bottom-footer">
     <div class="bottom-footer__group">alkinum.io</div>
-    <i-mdi-github />
+    <i-mdi-github @click="goGithub" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const goGithub = () => {
+  window.open('https://github.com/alkinum/emi-core-site', '_blank');
+};
+</script>
 
 <style lang="scss" scoped>
 @keyframes footer-in {

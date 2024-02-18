@@ -9,7 +9,9 @@
     </div>
     <div class="landing-action">
       <div class="landing-action__buttons">
-        <a-button><span>你好，Emi~ </span><i-material-symbols:arrow-upward-rounded /></a-button>
+        <a href="https://www.ciciai.com/share?botId=7336476855417126920" target="_blank"><a-button><span>Chat on Cici
+            </span><i-material-symbols:arrow-upward-rounded /></a-button></a>
+        <a href="https://t.me/emi_coze_bot" target="_blank"><a-button><span>Chat on Telegram </span><i-material-symbols:arrow-upward-rounded /></a-button></a>
       </div>
       <div class="landing-action__input">
         <a-input v-model="userInput" placeholder="Message Emi..." borderless round>
@@ -135,7 +137,16 @@ const handleSendClicked = () => { };
     &__buttons {
       display: flex;
       width: 100%;
-      margin-bottom: 8px;
+      margin-bottom: 16px;
+
+      a {
+        text-decoration: none;
+        margin-right: 6px;
+      }
+
+      a:last-child {
+        margin-right: 0;
+      }
 
       .a-button {
         min-width: 200px;
@@ -250,6 +261,49 @@ const handleSendClicked = () => { };
 
       .a-button:active {
         background-color: rgba(255, 255, 255, 0.18);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  .landing {
+    &-action {
+      width: 60%;
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .landing {
+    &-action {
+      width: 72%;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .landing {
+    &-action {
+      width: 88%;
+
+      &__buttons {
+        flex-direction: column;
+        position: relative;
+
+        a {
+          margin-right: 0;
+          margin-bottom: 12px;
+        }
+
+        a:last-child {
+          margin-bottom: 0;
+        }
+
+        .a-button {
+          width: 100%;
+          font-size: 12px;
+        }
       }
     }
   }

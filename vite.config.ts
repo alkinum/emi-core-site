@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url';
 
-import { AnyUIResolver } from '@any-design/anyui/lib/src/resolver';
+import { AnyUIResolver } from '@any-design/anyui/lib/resolver';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import AutoImport from 'unplugin-auto-import/vite';
