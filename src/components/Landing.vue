@@ -9,9 +9,9 @@
     </div>
     <div class="landing-action">
       <div class="landing-action__buttons">
-        <a href="https://www.ciciai.com/share?botId=7336476855417126920" target="_blank"><a-button><span>Chat on Cici
-            </span><i-material-symbols:arrow-upward-rounded /></a-button></a>
+        <a href="https://www.ciciai.com/share?botId=7336476855417126920" target="_blank"><a-button><span>Chat on Cici</span><i-material-symbols:arrow-upward-rounded /></a-button></a>
         <a href="https://t.me/emi_coze_bot" target="_blank"><a-button><span>Chat on Telegram </span><i-material-symbols:arrow-upward-rounded /></a-button></a>
+        <a href="https://chat.openai.com/g/g-GUFnRj0XR-emi" target="_blank"><a-button><span>Chat on GPTs </span><i-material-symbols:arrow-upward-rounded /></a-button></a>
       </div>
       <div class="landing-action__input">
         <a-input v-model="userInput" placeholder="Message Emi..." borderless round>
@@ -31,7 +31,11 @@ import { ref } from 'vue';
 
 const userInput = ref('');
 
-const handleSendClicked = () => { };
+const handleSendClicked = () => {
+  // open telegram by default because it's free and easy to access
+  window.open('https://t.me/emi_coze_bot', '_blank');
+  userInput.value = '';
+};
 </script>
 
 <style lang="scss">
@@ -282,10 +286,10 @@ const handleSendClicked = () => { };
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 875px) {
   .landing {
     &-action {
-      width: 88%;
+      width: 80%;
 
       &__buttons {
         flex-direction: column;
@@ -302,9 +306,20 @@ const handleSendClicked = () => { };
 
         .a-button {
           width: 100%;
-          font-size: 12px;
         }
       }
+    }
+
+    &-subtitle {
+      margin-bottom: 5.5rem;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .landing {
+    &-action {
+      width: 88%;
     }
   }
 }
